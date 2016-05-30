@@ -1,0 +1,55 @@
+*** AWK Intro ***
+Features:
+ 1. Reporter
+ 2. Field Processor
+ 3. Supports Scripting
+ 4. Programming Constructs
+ 5. Default Delimiter is whitespace
+ 6. Supports: Pipes, Files, and STDIN as sources of input
+ 7. Automatically tokenizes processed columns/fields into the variables: $1, $2, ... $n
+ 8. Supports GREP and EGREP RegExes
+ 
+Usage:
+ awk '{instructions}' file(s)
+ awk '/pattern/ { procedure }' file
+ awk -f script_file file(s)
+ 
+Tasks:
+Note: $0 represents the current record or row
+1. Print entire row, one at a time, from an input file (animals.txt)
+ a. awk '{  print $0 }' animals.txt
+
+2. Print specific columns from (animals.txt)
+ a. awk '{ print $1 }' animals.txt - this prints the 1st column from the file
+ 
+3. Print multiple columns from (animals.txt)
+ a. awk '{ print $1; print $2; }' animals.txt
+ b. awk '{ print $1,$2; }' animals.txt
+ 
+4. Print columns from lines containing 'deer'using RegExes
+ a. awk '/deer/ { print $0 }' animals.txt
+
+5. Print columns from lines containing digits
+ a. awk '/[0-9]/ { print $0 }' animals.txt
+ 
+6. Remove blank lines with SED and pipe output to awk for processing 
+ a. sed -e /^$/d animals.txt | awk '/^[0-9]*$/ { print $0 }'
+ 
+7. Print blank lines
+ a. awk '/^$/ { print $0 }' animals.txt
+ 
+8. Print ALL lines beginning with animal 'dog' case-insensitive
+ a. awk '/dog/I { print }' animals.txt
+ 
+*** Delimiters ***
+Default delimiter: whitespace (space, tabs) 
+Use: '-F' to influence the default delimiter
+
+Task:
+
+1. Parse /etc/passwd using awk
+ a. awk -F: ' { print } ' /etc/passwd
+ b. awk -F: ' { print $1, $5 } ' /etc/passwd
+ 
+2. Support for character classes in setting the default delimiter
+ a. awk -F"[:;,\t]"

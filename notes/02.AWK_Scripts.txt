@@ -1,0 +1,35 @@
+*** AWK Scripts ***
+-------------------
+
+Features:
+ 1. Ability to organize patterns and procedures into a script file
+ 2. The patterns/procedures are much neater and easier to read
+ 3. Less information is placed on the command line
+ 4. By default, loops through lines of input from various sources: STDIN, Pipe, Files
+ 5. # is the default comment character
+ 6. Able to perform matches based on specific fields
+ 
+ AWK Scripts consists of 3 parts:
+  1. Before (denoted using (BEGIN)) - Executed prior to first line of the input being read
+  2. During (Main AWK loop) - Focuses on looping through lines of input
+  3. After (Denoted using: END) - Executed after the LAST line of input has been processed
+ Note: BEGIN and END components of AWK scripts are OPTIONAL
+ 
+ Tasks:
+ 1. Print to the screen some useful information without reading input (STDIN, Pipe, or File)
+  a. awk ' BEGIN { print "Testing AWK without input file" } '
+  
+ 2. Set system variable: FS to colon in begin block
+  a. awk 'BEGIN { FS = ":" ; print "Testing AWK without input file" } ' 
+  b. awk 'BEGIN { FS = ":" ; print "New Field Separator " ; print FS } ' 
+  
+ 3. Write script to extract rows which contain 'deer' from animals.txt
+  a. awk -f animals.awk animals.txt
+  
+ 4. Parse /etc/passwd
+  a. Print entire line - { print }
+	 awk -f test.awk /etc/passwd
+  b. Print specific columns - { print $1, $5 }
+  c. Print specific columns for a specific user - /arjun/ { print $1, $5 }
+  d. Print specific columns for a specific user matching a given column - $1 ~ /arjun/ { print $1, $5 }
+  e. Test column #7 for the string 'bash' - $7 ~ /bash/ { print }
